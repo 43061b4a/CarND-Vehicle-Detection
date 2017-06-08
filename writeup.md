@@ -1,8 +1,3 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Vehicle Detection Project**
 
 The goals/steps of this project are the following:
@@ -38,18 +33,18 @@ The goals/steps of this project are the following:
 [image16]: ./video_output_images/windows_20170525-221349video.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
 
 You're reading it!
 
-###Histogram of Oriented Gradients (HOG)
+### Histogram of Oriented Gradients (HOG)
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The code for this step is contained in lines 21 through 33 of the file called `feature_extractor.py`).  
 
@@ -83,21 +78,21 @@ hist_bins = 16  # Number of histogram bins
 
 The selection was based on the visual inspection of results and testing on test images and test video. 
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I trained a linear SVM using LinearSVC and hinge loss function. This classifier used HOG, Histogram and spatial features for training. The reason Linear SVC was used is that according to the documentation, this function has a better underlying implementation. Here's what they have in the documentation:
 
 *Similar to SVC with parameter kernel=’linear,' but implemented regarding liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples.*
 
-###Sliding Window Search
+### Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 I used window sizes in range (64, 64), (96, 96), (128, 128), (192, 192). I also restricted searching in y-dimension but let it search in all of the x-dimension. The reason I choose these dimension is based on some manual approximationms of how big or small an image could appear in given frame. The overlap factor initially was 0.25 but that caused pipeline to be really slow. With some experimentation, I was able to increse it up to 0.75  that resulted in higher speed without much loss in precision.
 
 ![alt text][image3]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 I started with YUV color spaved but but eded up using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a great result.  Here are some example images:
 
@@ -123,7 +118,7 @@ I also did another version of videos with color space YUV:
 
 The second version shows that just changing color space results in some false positives. 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections, I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
@@ -154,9 +149,9 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here are few challanges with this solution:
 

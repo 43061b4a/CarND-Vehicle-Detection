@@ -62,7 +62,7 @@ And here's another example using the `YCrCb` color space and HOG parameters of `
 
 ![alt text][image3]
 
-####2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and finally used following settings:
 
@@ -104,7 +104,7 @@ I started with YUV color spaved but but eded up using YCrCb 3-channel HOG featur
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 
 Here are the videos with color space YCrCb:
 
